@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { use } from 'react';
 
-const AddUser = () => {
+const AddUser = ({usersData}) => {
+    const lodedUsersData = use(usersData)
+    console.log(lodedUsersData);
     const handleAddUser = (e) =>{
         e.preventDefault()
         const name = e.target.name.value
