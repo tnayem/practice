@@ -7,6 +7,17 @@ const AddUser = () => {
         const email = e.target.email.value
         const myUser = {name,email}
         console.log(myUser);
+        fetch("http://localhost:3000/users",{
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(myUser),
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+        })
     }
     return (
         <div>
