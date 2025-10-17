@@ -24,6 +24,16 @@ const AddUser = ({usersData}) => {
             setUser(newUser)
         })
     }
+    const handleUserDelete=(id) =>{
+        console.log("Delete successfully id: ",id);
+        fetch(`http://localhost:3000/users/${id}`,{
+            method:"DELETE",
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+        })
+    }
     return (
         <div>
             <form onSubmit={handleAddUser}>
@@ -34,7 +44,7 @@ const AddUser = ({usersData}) => {
             {/* Show users */}
             <div>
                 {
-                    users?.map(user=><h2>{user?.name}</h2>)
+                    users?.map(user=><h2>{user?.name} <button onClick={()=>handleUserDelete(user._id)} className='font-bold'>X</button></h2>)
                 }
             </div>
         </div>
