@@ -1,14 +1,14 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 
 const AddUser = ({usersData}) => {
     const lodedUsersData = use(usersData)
-    console.log(lodedUsersData);
+    const [users,setUser]= useState(lodedUsersData)
+    console.log(typeof usersData);
     const handleAddUser = (e) =>{
         e.preventDefault()
         const name = e.target.name.value
         const email = e.target.email.value
         const myUser = {name,email}
-        console.log(myUser);
         fetch("http://localhost:3000/users",{
             method: "POST",
             headers:{
@@ -19,6 +19,9 @@ const AddUser = ({usersData}) => {
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
+            myUser._id = data.insertedId
+            const newUser = [...users,myUser]
+            setUser(newUser)
         })
     }
     return (
@@ -28,6 +31,12 @@ const AddUser = ({usersData}) => {
                 <input type="email" name="email" placeholder='Enter Your Email'/><br />
                 <input type="submit" value="Add User" />
             </form>
+            {/* Show users */}
+            <div>
+                {
+                    users?.map(user=><h2>{user?.name}</h2>)
+                }
+            </div>
         </div>
     );
 };
