@@ -31,6 +31,10 @@ const AddUser = ({usersData}) => {
         })
         .then(res=>res.json())
         .then(data=>{
+            if(data.deletedCount){
+                const remainingUsers = users.filter(user=>user._id != id)
+                setUser(remainingUsers)
+            }
             console.log(data);
         })
     }
